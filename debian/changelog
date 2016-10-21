@@ -1,3 +1,10 @@
+indicator-messages (13.10.1+17.04.20161021-0ubuntu1) zesty; urgency=medium
+
+  [ Ted Gould ]
+  * Adding a systemd user session unit file
+
+ -- Martin Pitt <martin.pitt@ubuntu.com>  Fri, 21 Oct 2016 10:16:15 +0000
+
 indicator-messages (13.10.1+15.10.20150505-0ubuntu1) wily; urgency=medium
 
   [ Lars Uebernickel ]
