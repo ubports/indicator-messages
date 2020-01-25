@@ -34,7 +34,7 @@ struct _ImAccountsServicePrivate {
 };
 
 #define IM_ACCOUNTS_SERVICE_GET_PRIVATE(o) \
-(G_TYPE_INSTANCE_GET_PRIVATE ((o), IM_ACCOUNTS_SERVICE_TYPE, ImAccountsServicePrivate))
+(im_accounts_service_get_instance_private (o))
 
 static void im_accounts_service_class_init (ImAccountsServiceClass *klass);
 static void im_accounts_service_init       (ImAccountsService *self);
@@ -44,14 +44,12 @@ static void user_changed (ActUserManager * manager, ActUser * user, gpointer use
 static void on_user_manager_loaded (ActUserManager * manager, GParamSpec * pspect, gpointer user_data);
 static void security_privacy_ready (GObject * obj, GAsyncResult * res, gpointer user_data);
 
-G_DEFINE_TYPE (ImAccountsService, im_accounts_service, G_TYPE_OBJECT);
+G_DEFINE_TYPE_WITH_PRIVATE (ImAccountsService, im_accounts_service, G_TYPE_OBJECT);
 
 static void
 im_accounts_service_class_init (ImAccountsServiceClass *klass)
 {
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
-
-	g_type_class_add_private (klass, sizeof (ImAccountsServicePrivate));
 
 	object_class->dispose = im_accounts_service_dispose;
 	object_class->finalize = im_accounts_service_finalize;
@@ -78,7 +76,7 @@ im_accounts_service_init (ImAccountsService *self)
 static void
 im_accounts_service_dispose (GObject *object)
 {
-	ImAccountsServicePrivate * priv = IM_ACCOUNTS_SERVICE_GET_PRIVATE(object);
+	ImAccountsServicePrivate * priv = IM_ACCOUNTS_SERVICE_GET_PRIVATE(IM_ACCOUNTS_SERVICE (object));
 
 	if (priv->cancel != NULL) {
 		g_cancellable_cancel(priv->cancel);
